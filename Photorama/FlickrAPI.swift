@@ -60,6 +60,22 @@ struct FlickrAPI
         return flickrURL (method: .interestingPhotos, parameters: ["extras": "url_h,date_taken"])
     }
     
+    private static func photo(fromJSON json: [String : Any]) -> Photo? {
+        guard
+            let photoID = json["id"] as? String,
+            let title = json["title"] as? String,
+            let dateString = json["datetaken"] as? String,
+            let photoURLString = json["url_h"] as? String,
+            let url = URL(string: photoURLString),
+            let dateTaken = dateFormatter.date(from: dateString) else {
+                
+                return nil
+        }
+        
+        return Photo(title: title, photoID: photoID, remoteURL: url, dateTaken: dateTaken)
+    }
+    
+    
     static func photos(fromJSON data: Data) -> PhotosResult {
         do {
             let jsonObject = try JSONSerialization.jsonObject(with: data, options: [])
@@ -73,11 +89,25 @@ struct FlickrAPI
             
             
             var finalPhotos = [Photo]()
+            for photoJSON in photosArray {
+                if let photo = photo(fromJSON: photoJSON) {
+                    finalPhotos.append(photo)
+                }
+            }
+            
             return .success(finalPhotos)
         } catch let error {
             return .failure(error)
             
         }
+    }
+    
+    private func processPhotosRequest(data: Data?, error:Error?) -> PhotosResult {
+        guard let jsonData = data else {
+            return .failure(error!)
+        }
+        
+        return FlickrAPI.photos(fromJSON: jsonData)
     }
     
     
