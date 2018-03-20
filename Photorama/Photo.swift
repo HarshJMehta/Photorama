@@ -1,14 +1,7 @@
-//
-//  Photo.swift
-//  Photorama
-//
-//  Created by Harsh Mehta on 2018-03-12.
-//  Copyright © 2018 Harsh Mehta. All rights reserved.
-//
 
 import Foundation
 
-class Photo{
+class Photo {
     
     let title: String
     let remoteURL: URL
@@ -22,3 +15,13 @@ class Photo{
         self.dateTaken=dateTaken
     }
 }
+    
+extension Photo: Equatable {
+
+static func == (lhs: Photo, rhs: Photo) -> Bool {
+        return lhs.photoID == rhs.photoID
+    }
+    
+}
+
+

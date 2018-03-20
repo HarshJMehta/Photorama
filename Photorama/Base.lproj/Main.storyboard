@@ -50,8 +50,8 @@
                                             <constraint firstItem="vRT-k1-XDs" firstAttribute="centerX" secondItem="nTM-9r-QPa" secondAttribute="centerX" id="ti6-l1-6rW"/>
                                         </constraints>
                                         <connections>
-                                            <outlet property="imageView" destination="BVI-73-eRc" id="JUb-cA-GTK"/>
-                                            <outlet property="spinner" destination="vRT-k1-XDs" id="NDV-1w-7u9"/>
+                                            <outlet property="imageView" destination="BVI-73-eRc" id="gfN-Rh-dkF"/>
+                                            <outlet property="spinner" destination="vRT-k1-XDs" id="CNL-BF-nBR"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
